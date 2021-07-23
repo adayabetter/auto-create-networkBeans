@@ -1,0 +1,15 @@
+package {{ package }}
+
+/**
+ * @author admin
+ * @version 1.0
+ * @Description 实体类{{class_name}}
+ * @date {{ date }}
+ */
+
+data class {{ class_name }} (
+    {% autoescape false %}
+    {{ properties }}
+    {% endautoescape %}
+)
+

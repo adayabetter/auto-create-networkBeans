@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/createClass" method="post" datatype="application/json">
+        <div style="width: 100%; min-height: 60%; border: 0px silver solid;float: left;">
+                <div style="width: 80%;  float: left; ">
+                <h3>自动生成实体类</h3>
+
+                <textarea id="fields" name="fields" style="width: 99%; height: 600px;">
+{
+    "package": "com.example.networkdemo.bean",
+    "class": "Result",
+    "column":
+}
+                </textarea>
+            </div>
+        </div>
+        <hr>
+        <p>
+            <input type="submit" id="commit" name="commit" value=" 提  交 " style="margin-left: 47%">
+        </p>
+    </form>
+    {% if msg %}
+        <strong>您好:</strong> {{ msg }}
+    {% endif %}
+    {% if file_name %}
+        <strong>下载文件:</strong> <a href="/download/{{ file_name }}" >{{ file_name }}</a>
+    {% endif %}
+
+</body>
+</html>
