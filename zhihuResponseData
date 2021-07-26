@@ -1,0 +1,129 @@
+{
+    "date": "20210726",
+    "stories": [
+        {
+            "image_hue": "0x393b29",
+            "title": "如何高效地开会？",
+            "url": "https://daily.zhihu.com/story/9738481",
+            "hint": "首席组织官 · 4 分钟阅读",
+            "ga_prefix": "072607",
+            "images": [
+                "https://pic1.zhimg.com/v2-7724a9b0e5372374fbdcbdf8371e9ead.jpg?source=8673f162"
+            ],
+            "type": 0,
+            "id": 9738481
+        },
+        {
+            "image_hue": "0xb3b3b3",
+            "title": "为什么人们容易沉浸在负面情绪中？",
+            "url": "https://daily.zhihu.com/story/9738482",
+            "hint": "熊七夕 · 8 分钟阅读",
+            "ga_prefix": "072607",
+            "images": [
+                "https://pic1.zhimg.com/v2-2447063ef8ea296b7ebeb721f6a27a5f.jpg?source=8673f162"
+            ],
+            "type": 0,
+            "id": 9738482
+        },
+        {
+            "image_hue": "0x1e1b26",
+            "title": "既然周深会女声，那周深能不能唱出袁娅维的声音？",
+            "url": "https://daily.zhihu.com/story/9738416",
+            "hint": "爱唱歌的老羊 · 1 分钟阅读",
+            "ga_prefix": "072607",
+            "images": [
+                "https://pic3.zhimg.com/v2-17cdc86c3474d2b59de7dd8735cfae62.jpg?source=8673f162"
+            ],
+            "type": 0,
+            "id": 9738416
+        },
+        {
+            "image_hue": "0x261c1a",
+            "title": "工作生活中有哪些值得坚持的好习惯？",
+            "url": "https://daily.zhihu.com/story/9738472",
+            "hint": "李晓楠的好奇心 · 4 分钟阅读",
+            "ga_prefix": "072607",
+            "images": [
+                "https://pic1.zhimg.com/v2-90888949376dac5e3b62df9cd7eec4de.jpg?source=8673f162"
+            ],
+            "type": 0,
+            "id": 9738472
+        },
+        {
+            "image_hue": "0xb3862d",
+            "title": "为什么银杏可以单独作为一个纲？",
+            "url": "https://daily.zhihu.com/story/9738387",
+            "hint": "小虎纸 · 2 分钟阅读",
+            "ga_prefix": "072607",
+            "images": [
+                "https://pic1.zhimg.com/v2-3a231c1b4b6cdd504b0b34a9935abb1a.jpg?source=8673f162"
+            ],
+            "type": 0,
+            "id": 9738387
+        },
+        {
+            "image_hue": "0x1e1e1e",
+            "title": "瞎扯 · 如何正确地吐槽",
+            "url": "https://daily.zhihu.com/story/9738496",
+            "hint": "VOL.2708",
+            "ga_prefix": "072606",
+            "images": [
+                "https://pic1.zhimg.com/v2-44127526d077de68a885d3dd2959630d.jpg?source=8673f162"
+            ],
+            "type": 0,
+            "id": 9738496
+        }
+    ],
+    "top_stories": [
+        {
+            "image_hue": "0x395a67",
+            "hint": "作者 / 甄昊元",
+            "url": "https://daily.zhihu.com/story/9738344",
+            "image": "https://pic1.zhimg.com/v2-b409052e6bba4723c9f49137bc766815.jpg?source=8673f162",
+            "title": "暴雨自救手册",
+            "ga_prefix": "072207",
+            "type": 0,
+            "id": 9738344
+        },
+        {
+            "image_hue": "0x483c2b",
+            "hint": "作者 / 壹心理",
+            "url": "https://daily.zhihu.com/story/9738314",
+            "image": "https://pic3.zhimg.com/v2-4863a29b0e52bb8c9e5a36169919ebca.jpg?source=8673f162",
+            "title": "如何控制负面情绪？",
+            "ga_prefix": "072107",
+            "type": 0,
+            "id": 9738314
+        },
+        {
+            "image_hue": "0x4b620f",
+            "hint": "作者 / ag獭",
+            "url": "https://daily.zhihu.com/story/9738269",
+            "image": "https://pic1.zhimg.com/v2-fc14e0bf2316dbc94867a447e44f229d.jpg?source=8673f162",
+            "title": "没有空调的古人住宅，在夏天是如何避暑的？",
+            "ga_prefix": "072007",
+            "type": 0,
+            "id": 9738269
+        },
+        {
+            "image_hue": "0x36221c",
+            "hint": "作者 / 凯鹅",
+            "url": "https://daily.zhihu.com/story/9738200",
+            "image": "https://pic1.zhimg.com/v2-42d022eb8c28155810a339f5f9682043.jpg?source=8673f162",
+            "title": "为什么影视剧中每个村都有一个俏寡妇？",
+            "ga_prefix": "071907",
+            "type": 0,
+            "id": 9738200
+        },
+        {
+            "image_hue": "0xab9178",
+            "hint": "作者 / 苏澄宇",
+            "url": "https://daily.zhihu.com/story/9738141",
+            "image": "https://pic1.zhimg.com/v2-e1089210110b079f04d5f931fd9a4e80.jpg?source=8673f162",
+            "title": "动物有哪些演化是人类造成的？",
+            "ga_prefix": "071707",
+            "type": 0,
+            "id": 9738141
+        }
+    ]
+}
