@@ -42,14 +42,15 @@ def create_class():
         d = time.strftime("%Y-%m-%d", time.localtime())
 
         print('--- create entity class')
-        create_entity(class_name, package, j['column'], d)
+        create_KotlinAndJava(class_name, package, j['column'], d)
+        create_swift(class_name, package, j['column'], d)
         file_name = make_targz()
         msg = '文件已生成，请查阅～'
 
     return render_template('create_class_2.html', msg=msg, file_name=file_name)
 
 
-def Python2JavaType(python_type, value):
+def Python2JavaType(python_type, value, fileType='java'):
     if python_type == 'str':
         return 'String'
     elif python_type == 'int':
@@ -57,52 +58,107 @@ def Python2JavaType(python_type, value):
     elif python_type == 'list':
         Item = value[0]
         ItemType = Python2JavaType(type(Item).__name__, Item)
-        return 'MutableList<{}>'.format(ItemType)
+        if fileType.startswith('j'):
+            return 'List<{}>'.format(ItemType)
+        elif fileType.startswith('k'):
+            return 'MutableList<{}>'.format(ItemType)
+        elif fileType.startswith('s'):
+            return '[{}]'.format(ItemType)
     else:
         return 'String'
 
 
 def create_sub_entity(class_name, package, columns, date):
-    properties = ''
-    if columns:
+    swift_properties = java_properties = kotlin_properties = ''
+    if type(columns).__name__ == 'dict':
         for idx, key in enumerate(columns.keys()):
             split = ',' if idx < (len(columns) - 1) else ''
             typeName = type(columns[key]).__name__
-            itemType = Python2JavaType(typeName, columns[key])
-            properties += 'val %s: %s' % (key, itemType) + split + '\n\t'
-    c = {'package': package,
-         'class_name': class_name,
-         'properties': properties,
-         'date': date}
+            kotlinItemType = Python2JavaType(typeName, columns[key], 'kotlin')
+            javaItemType = Python2JavaType(typeName, columns[key], 'java')
+            swiftItemType = Python2JavaType(typeName, columns[key], 'swift')
+            kotlin_properties += 'val %s: %s' % (key, kotlinItemType) + split + '\n\t'
+            java_properties += 'public %s %s' % (javaItemType, key) + ';' + '\n\t'
+            swift_properties += 'let %s: %s' % (key, swiftItemType) + '\n\t'
+    create_file_with_properties(class_name, package, kotlin_properties, date, 'kotlin_templates.html', '.kt')
+    create_file_with_properties(class_name, package, java_properties, date, 'java_templates.html', '.java')
+    create_file_with_properties(class_name, package, swift_properties, date, 'swift_templates.html', '.swift')
 
-    s = render_template('entity_templates.html', **c)
-    create_java_file(class_name, package, s)
+
+def create_file_with_properties(class_name, package, properties, date, templates, suffix):
+    content = {'package': package,
+               'class_name': class_name,
+               'properties': properties,
+               'date': date}
+    s = render_template(templates, **content)
+    create_entity_file(class_name, package, s, suffix)
 
 
-# 创建entity
-def create_entity(class_name, package, columns, date):
+#
+def create_swift(class_name, package, columns, date):
     properties = ''
     if columns:
-        for idx, key in enumerate(columns.keys()):
-            split = ',' if idx < (len(columns) - 1) else ''
+        for key in columns.keys():
             columnType = 'String'
             typename = type(columns[key]).__name__
             if typename == 'str':
                 columnType = 'String'
             elif typename == 'list':
                 item = columns[key][0]
-                columnType = 'MutableList<{}>'.format(upper_str(key))
+                columnType = '[{}]'.format(upper_str(key))
                 create_sub_entity(upper_str(key), package, item, date)
+            properties += 'let %s: %s' % (key, columnType) + '\n\t'
+
+    c = {'package': package,
+         'class_name': class_name,
+         'properties': properties,
+         'date': date}
+    s = render_template('swift_templates.html', **c)
+    create_entity_file(class_name, package, s, '.swift')
+
+
+# 创建kotlin & java
+def create_KotlinAndJava(class_name, package, columns, date):
+    java_properties = properties = ''
+    if columns:
+        for idx, key in enumerate(columns.keys()):
+            split = ',' if idx < (len(columns) - 1) else ''
+            javaColumnType = columnType = 'String'
+            typename = type(columns[key]).__name__
+            if typename == 'str':
+                columnType = 'String'
+            elif typename == 'list':
+                item = columns[key][0]
+                columnType = 'MutableList<{}>'.format(upper_str(key))
+                javaColumnType = 'List<{}>'.format(upper_str(key))
+                create_sub_entity(upper_str(key), package, item, date)
+            elif typename == 'dict':
+                for key1 in columns[key].keys():
+                    item = columns[key][key1]
+                    columnType = 'MutableList<{}>'.format(upper_str(key1))
+                    itemType = type(item).__name__
+                    if itemType == 'list':
+                        create_sub_entity(upper_str(key1), package, item[0], date)
+                    elif itemType == 'dict':
+                        create_sub_entity(upper_str(key1), package, item, date)
 
             properties += 'val %s: %s' % (key, columnType) + split + '\n\t'
+            java_properties += 'public %s %s' % (javaColumnType, key) + ';' + '\n\t'
 
     c = {'package': package,
          'class_name': class_name,
          'properties': properties,
          'date': date}
 
-    s = render_template('entity_templates.html', **c)
-    create_java_file(class_name, package, s)
+    s = render_template('kotlin_templates.html', **c)
+    create_entity_file(class_name, package, s)
+    # create java bean
+    j = {'package': package,
+         'class_name': class_name,
+         'properties': java_properties,
+         'date': date}
+    s = render_template('java_templates.html', **j)
+    create_entity_file(class_name, package, s, '.java')
 
 
 # 将首字母转换为大写
@@ -113,7 +169,7 @@ def upper_str(s):
 
 
 # 创建kotlin文件
-def create_java_file(class_name, package, text, suffix='.kt'):
+def create_entity_file(class_name, package, text, suffix='.kt'):
     dirs = 'D:/temp/python/' + package.replace('.', '/') + '/'
     if not os.path.exists(dirs):
         os.makedirs(dirs, 0o777)

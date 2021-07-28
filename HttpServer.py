@@ -4,6 +4,8 @@
 '''
 kysec_set -n exectl -v verified ./HttpServerWithUpload.py
 nohup python HttpServerWithUpload.py > /dev/null 2>&1 &
+运行命令： python2 HttpServer.py
+在浏览器中输入： http://127.0.0.1:1234/
 '''
 __version__ = "0.6"
 __all__ = ["SimpleHTTPRequestHandler"]
